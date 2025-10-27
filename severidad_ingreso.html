@@ -1,0 +1,101 @@
+import React from 'react';
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
+
+const GraficaSeveridadInicial = () => {
+  const data = [
+    { name: 'Severo', value: 98, porcentaje: 66.2, color: '#6B7280' },
+    { name: 'Moderado', value: 21, porcentaje: 14.2, color: '#9CA3AF' },
+    { name: 'Sin clasificar', value: 29, porcentaje: 19.6, color: '#D1D5DB' }
+  ];
+
+  const renderCustomLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
+    const RADIAN = Math.PI / 180;
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text 
+        x={x} 
+        y={y} 
+        fill="white" 
+        textAnchor={x > cx ? 'start' : 'end'} 
+        dominantBaseline="central"
+        className="font-bold"
+        style={{ fontSize: '28px' }}
+      >
+        {`${(percent * 100).toFixed(1)}%`}
+      </text>
+    );
+  };
+
+  return (
+    <div className="w-full max-w-5xl mx-auto p-10 bg-white">
+      <div className="text-center mb-10">
+        <h1 className="text-4xl font-bold text-gray-800 mb-3">
+          Severidad de Desnutrición al Ingreso
+        </h1>
+        <h2 className="text-2xl text-gray-600 mb-2">Programa de Desnutrición Infantil</h2>
+        <h3 className="text-xl text-gray-500">Mundo Orenda</h3>
+        <p className="text-lg text-gray-500 mt-4">Total: 148 niños atendidos</p>
+      </div>
+
+      <ResponsiveContainer width="100%" height={500}>
+        <PieChart>
+          <Pie
+            data={data}
+            cx="50%"
+            cy="50%"
+            labelLine={false}
+            label={renderCustomLabel}
+            outerRadius={180}
+            dataKey="value"
+            strokeWidth={4}
+            stroke="#fff"
+          >
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={entry.color} />
+            ))}
+          </Pie>
+        </PieChart>
+      </ResponsiveContainer>
+
+      <div className="grid grid-cols-3 gap-6 mt-10">
+        <div className="bg-gradient-to-br from-gray-100 to-gray-200 p-8 rounded-xl border-3 border-gray-400 shadow-lg">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-xl text-gray-800 font-bold">Severo</span>
+            <div className="w-8 h-8 rounded-lg shadow-md" style={{ backgroundColor: '#6B7280' }}></div>
+          </div>
+          <div className="text-6xl font-bold text-gray-900 mb-3">98</div>
+          <div className="text-xl text-gray-700 font-semibold">66.2% del total</div>
+        </div>
+        
+        <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-8 rounded-xl border-3 border-gray-300 shadow-lg">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-xl text-gray-800 font-bold">Moderado</span>
+            <div className="w-8 h-8 rounded-lg shadow-md" style={{ backgroundColor: '#9CA3AF' }}></div>
+          </div>
+          <div className="text-6xl font-bold text-gray-900 mb-3">21</div>
+          <div className="text-xl text-gray-700 font-semibold">14.2% del total</div>
+        </div>
+
+        <div className="bg-gradient-to-br from-gray-50 to-gray-50 p-8 rounded-xl border-3 border-gray-200 shadow-lg">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-xl text-gray-800 font-bold">Sin clasificar</span>
+            <div className="w-8 h-8 rounded-lg shadow-md" style={{ backgroundColor: '#D1D5DB' }}></div>
+          </div>
+          <div className="text-6xl font-bold text-gray-900 mb-3">29</div>
+          <div className="text-xl text-gray-700 font-semibold">19.6% del total</div>
+        </div>
+      </div>
+
+      <div className="mt-10 bg-gray-100 p-6 rounded-xl border-2 border-gray-400">
+        <p className="text-lg text-gray-800 font-semibold text-center">
+          El <span className="text-gray-700 font-bold">66.2%</span> de los niños ingresaron con desnutrición severa, requiriendo intervención inmediata
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default GraficaSeveridadInicial;
