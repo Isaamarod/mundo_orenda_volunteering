@@ -1,8 +1,8 @@
-# 🩺 Proyecto Mundo Renda — Análisis de Datos de Salud Comunitaria
+# 🩺 Proyecto Mundo Orenda — Análisis de Datos de Salud Comunitaria
 
 ## 🌍 Descripción general
 
-**Mundo Renda** es un proyecto de análisis de datos sanitarios centrado en la mejora del seguimiento clínico y nutricional de pacientes en comunidades vulnerables.  
+**Mundo Orenda** es un proyecto de análisis de datos sanitarios centrado en la mejora del seguimiento clínico y nutricional de pacientes en comunidades vulnerables.  
 El objetivo principal es **limpiar, estandarizar y analizar datos clínicos** para identificar patrones de atención médica, tratamientos más frecuentes y evolución temporal de los pacientes.
 
 El proyecto integra un **pipeline de procesamiento de datos en Python (pandas)** y una serie de **visualizaciones estadísticas** que resumen los hallazgos clave en paneles gráficos.
