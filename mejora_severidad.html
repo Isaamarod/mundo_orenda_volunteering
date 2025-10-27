@@ -1,0 +1,129 @@
+import React from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, LabelList, Legend } from 'recharts';
+
+const GraficaMejoraSeveridad = () => {
+  const data = [
+    { 
+      momento: 'Primera Visita', 
+      severo: 67.4, 
+      moderado: 14.0,
+      sinClasificar: 18.6
+    },
+    { 
+      momento: 'Última Visita', 
+      severo: 42.6, 
+      moderado: 38.8,
+      sinClasificar: 18.6
+    }
+  ];
+
+  return (
+    <div className="w-full max-w-6xl mx-auto p-10 bg-white">
+      <div className="text-center mb-10">
+        <h1 className="text-4xl font-bold text-gray-800 mb-3">
+          Mejora en Severidad de Desnutrición
+        </h1>
+        <h2 className="text-2xl text-gray-600 mb-2">Programa de Desnutrición Infantil</h2>
+        <h3 className="text-xl text-gray-500">Mundo Orenda</h3>
+        <p className="text-lg text-gray-500 mt-4">51 niños recuperados</p>
+      </div>
+
+      <ResponsiveContainer width="100%" height={500}>
+        <BarChart data={data} margin={{ top: 30, right: 40, left: 40, bottom: 20 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#d1d5db" strokeWidth={1.5} />
+          <XAxis 
+            dataKey="momento" 
+            tick={{ fill: '#1f2937', fontSize: 16, fontWeight: 600 }}
+          />
+          <YAxis 
+            tick={{ fill: '#1f2937', fontSize: 15, fontWeight: 600 }}
+            label={{ 
+              value: 'Porcentaje (%)', 
+              angle: -90, 
+              position: 'insideLeft',
+              style: { fontSize: 16, fontWeight: 600, fill: '#374151' }
+            }}
+          />
+          <Legend 
+            wrapperStyle={{ paddingTop: '20px', fontSize: '14px', fontWeight: 600 }}
+            formatter={(value) => {
+              if (value === 'severo') return 'Severo';
+              if (value === 'moderado') return 'Moderado';
+              return 'Sin clasificar';
+            }}
+          />
+          <Bar dataKey="severo" fill="#6B7280" radius={[8, 8, 0, 0]}>
+            <LabelList 
+              dataKey="severo" 
+              position="center" 
+              style={{ fill: 'white', fontWeight: 'bold', fontSize: '16px' }}
+              formatter={(value) => `${value}%`}
+            />
+          </Bar>
+          <Bar dataKey="moderado" fill="#9CA3AF" radius={[8, 8, 0, 0]}>
+            <LabelList 
+              dataKey="moderado" 
+              position="center" 
+              style={{ fill: 'white', fontWeight: 'bold', fontSize: '16px' }}
+              formatter={(value) => `${value}%`}
+            />
+          </Bar>
+          <Bar dataKey="sinClasificar" fill="#D1D5DB" radius={[8, 8, 0, 0]}>
+            <LabelList 
+              dataKey="sinClasificar" 
+              position="center" 
+              style={{ fill: '#4B5563', fontWeight: 'bold', fontSize: '16px' }}
+              formatter={(value) => `${value}%`}
+            />
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+
+      <div className="mt-10 grid grid-cols-2 gap-8">
+        <div className="bg-gradient-to-br from-gray-100 to-gray-200 p-8 rounded-xl border-3 border-gray-400 shadow-lg">
+          <div className="text-xl text-gray-800 font-bold mb-4 text-center">Desnutrición Severa</div>
+          <div className="flex justify-between items-center">
+            <div className="text-center">
+              <div className="text-base text-gray-700 font-semibold mb-2">Inicial</div>
+              <div className="text-5xl font-bold text-gray-900">67.4%</div>
+            </div>
+            <div className="text-4xl text-gray-600">→</div>
+            <div className="text-center">
+              <div className="text-base text-gray-700 font-semibold mb-2">Final</div>
+              <div className="text-5xl font-bold text-gray-900">42.6%</div>
+            </div>
+          </div>
+          <div className="mt-4 text-center">
+            <span className="text-xl font-bold text-green-700">-24.8 puntos</span>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-br from-gray-50 to-gray-100 p-8 rounded-xl border-3 border-gray-300 shadow-lg">
+          <div className="text-xl text-gray-800 font-bold mb-4 text-center">Desnutrición Moderada</div>
+          <div className="flex justify-between items-center">
+            <div className="text-center">
+              <div className="text-base text-gray-700 font-semibold mb-2">Inicial</div>
+              <div className="text-5xl font-bold text-gray-900">14.0%</div>
+            </div>
+            <div className="text-4xl text-gray-600">→</div>
+            <div className="text-center">
+              <div className="text-base text-gray-700 font-semibold mb-2">Final</div>
+              <div className="text-5xl font-bold text-gray-900">38.8%</div>
+            </div>
+          </div>
+          <div className="mt-4 text-center">
+            <span className="text-xl font-bold text-green-700">+24.8 puntos</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-10 bg-green-50 p-6 rounded-xl border-2 border-green-400">
+        <p className="text-lg text-gray-800 font-semibold text-center">
+          Mejora significativa en severidad: <span className="text-green-700 font-bold">p &lt; 0.001</span> - Los niños evolucionan de severo a moderado
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default GraficaMejoraSeveridad;
