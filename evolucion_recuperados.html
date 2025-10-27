@@ -1,0 +1,103 @@
+import React from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Cell, LabelList } from 'recharts';
+
+const TiempoRecuperacion = () => {
+  const dataComparativa = [
+    { tratamiento: 'Sin Plumpy Nut', dias: 111 },
+    { tratamiento: 'Con Plumpy Nut', dias: 89 }
+  ];
+
+  const dataDistribucionDias = [
+    { rango: '0-30 días', casos: 3 },
+    { rango: '31-60 días', casos: 8 },
+    { rango: '61-90 días', casos: 12 },
+    { rango: '91-120 días', casos: 10 },
+    { rango: '121-180 días', casos: 12 },
+    { rango: '>180 días', casos: 6 }
+  ];
+
+  const colors = ['#557B6E', '#6B9080', '#7A9D8F', '#89AA9E', '#98B7AD', '#A4C3B2'];
+
+  return (
+    <div className="w-full max-w-6xl mx-auto p-8 bg-white">
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold text-gray-800 mb-2">
+          Tiempo de Recuperación de Niños
+        </h2>
+        <h3 className="text-xl text-gray-600 mb-1">Programa de Desnutrición Infantil - Mundo Orenda</h3>
+        <p className="text-base text-gray-500 mt-2">51 niños recuperados (Nov 2024 - Oct 2025)</p>
+      </div>
+
+      <div className="mb-12">
+        <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">Días Promedio hasta Recuperación</h3>
+        <ResponsiveContainer width="100%" height={400}>
+          <BarChart data={dataComparativa} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+            <XAxis 
+              dataKey="tratamiento" 
+              tick={{ fill: '#374151', fontSize: 14, fontWeight: 500 }}
+            />
+            <YAxis tick={{ fill: '#374151', fontSize: 13 }} domain={[0, 120]} />
+            <Bar dataKey="dias" radius={[8, 8, 0, 0]}>
+              <Cell fill="#6B9080" />
+              <Cell fill="#A4C3B2" />
+              <LabelList 
+                dataKey="dias" 
+                position="top" 
+                style={{ fill: '#1f2937', fontWeight: 'bold', fontSize: '18px' }}
+                formatter={(value) => `${value} días`}
+              />
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+
+        <div className="grid grid-cols-2 gap-6 mt-6">
+          <div className="bg-gradient-to-br from-gray-100 to-gray-200 p-8 rounded-xl border-2 border-gray-300 shadow-md text-center">
+            <div className="text-base text-gray-600 font-semibold mb-2">Sin Plumpy Nut</div>
+            <div className="text-5xl font-bold text-gray-800 mb-2">111</div>
+            <div className="text-base text-gray-500">días promedio (3.7 meses)</div>
+          </div>
+          
+          <div className="bg-gradient-to-br from-green-100 to-green-200 p-8 rounded-xl border-2 border-green-300 shadow-md text-center">
+            <div className="text-base text-gray-600 font-semibold mb-2">Con Plumpy Nut</div>
+            <div className="text-5xl font-bold text-gray-800 mb-2">89</div>
+            <div className="text-base text-gray-500">días promedio (3 meses)</div>
+            <div className="mt-2 text-sm font-bold text-green-700">22 días menos</div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mb-8">
+        <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">Distribución de Tiempo de Recuperación</h3>
+        <ResponsiveContainer width="100%" height={400}>
+          <BarChart data={dataDistribucionDias} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+            <XAxis 
+              dataKey="rango" 
+              tick={{ fill: '#374151', fontSize: 13, fontWeight: 500 }}
+            />
+            <YAxis tick={{ fill: '#374151', fontSize: 13 }} />
+            <Bar dataKey="casos" radius={[8, 8, 0, 0]}>
+              {dataDistribucionDias.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={colors[index]} />
+              ))}
+              <LabelList 
+                dataKey="casos" 
+                position="top" 
+                style={{ fill: '#1f2937', fontWeight: 'bold', fontSize: '14px' }}
+              />
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      <div className="bg-gray-50 p-8 rounded-lg border-2 border-gray-300 shadow-md">
+        <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">Promedio de Visitas por Niño Recuperado</h3>
+        <div className="text-6xl font-bold text-gray-800 text-center">6.5</div>
+        <div className="text-lg text-gray-600 text-center mt-2">visitas promedio</div>
+      </div>
+    </div>
+  );
+};
+
+export default TiempoRecuperacion;
