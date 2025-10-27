@@ -1,0 +1,63 @@
+import React from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, LabelList } from 'recharts';
+
+const GraficaMedicamentos = () => {
+  const data = [
+    { medicamento: 'Multivitaminas', cantidad: 699 },
+    { medicamento: 'Paracetamol', cantidad: 386 },
+    { medicamento: 'Amoxicilina', cantidad: 348 },
+    { medicamento: 'ASAQ', cantidad: 230 },
+    { medicamento: 'Coartem', cantidad: 206 }
+  ];
+
+  return (
+    <div className="w-full max-w-5xl mx-auto p-10 bg-white">
+      <div className="text-center mb-10">
+        <h1 className="text-4xl font-bold text-gray-800 mb-3">
+          Medicamentos Más Utilizados
+        </h1>
+        <h2 className="text-2xl text-gray-600 mb-2">Programa de Desnutrición Infantil</h2>
+        <h3 className="text-xl text-gray-500">Mundo Orenda</h3>
+        <p className="text-lg text-gray-500 mt-4">Top 5 medicamentos</p>
+      </div>
+
+      <ResponsiveContainer width="100%" height={500}>
+        <BarChart data={data} margin={{ top: 30, right: 40, left: 40, bottom: 20 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#d1d5db" strokeWidth={1.5} />
+          <XAxis 
+            dataKey="medicamento" 
+            tick={{ fill: '#1f2937', fontSize: 15, fontWeight: 600 }}
+          />
+          <YAxis 
+            tick={{ fill: '#1f2937', fontSize: 15, fontWeight: 600 }}
+            label={{ 
+              value: 'Cantidad de dosis', 
+              angle: -90, 
+              position: 'insideLeft',
+              style: { fontSize: 16, fontWeight: 600, fill: '#374151' }
+            }}
+          />
+          <Bar dataKey="cantidad" fill="#6B9080" radius={[10, 10, 0, 0]}>
+            <LabelList 
+              dataKey="cantidad" 
+              position="top" 
+              style={{ fill: '#111827', fontWeight: 'bold', fontSize: '18px' }}
+            />
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
+
+      <div className="mt-10 grid grid-cols-5 gap-4">
+        {data.map((item, index) => (
+          <div key={index} className="bg-gray-100 p-5 rounded-lg border-2 border-gray-400 text-center shadow-sm">
+            <div className="text-sm text-gray-700 font-semibold mb-2">{item.medicamento}</div>
+            <div className="text-3xl font-bold text-gray-900">{item.cantidad}</div>
+            <div className="text-sm text-gray-600 mt-1">dosis</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default GraficaMedicamentos;
