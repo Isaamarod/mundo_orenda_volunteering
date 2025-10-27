@@ -1,0 +1,99 @@
+import React from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Cell, LabelList } from 'recharts';
+
+const MedicamentosPrincipales = () => {
+  const dataMedicamentos = [
+    { medicamento: 'Multivitaminas', cantidad: 699, porcentaje: '79.2%' },
+    { medicamento: 'Paracetamol', cantidad: 386, porcentaje: '43.7%' },
+    { medicamento: 'Amoxicilina', cantidad: 348, porcentaje: '39.4%' },
+    { medicamento: 'ASAQ', cantidad: 230, porcentaje: '26.0%' },
+    { medicamento: 'Coartem', cantidad: 206, porcentaje: '23.3%' }
+  ];
+
+  const dataGrupos = [
+    { grupo: 'Vitaminas /\nSuplementos', cantidad: 957, porcentaje: '39.3%' },
+    { grupo: 'Antibióticos', cantidad: 464, porcentaje: '19.0%' },
+    { grupo: 'Antimaláricos', cantidad: 448, porcentaje: '18.4%' },
+    { grupo: 'Analgésicos /\nAntipiréticos', cantidad: 392, porcentaje: '16.1%' },
+    { grupo: 'Otros\nmedicamentos', cantidad: 113, porcentaje: '4.6%' },
+    { grupo: 'Antiparasitarios', cantidad: 64, porcentaje: '2.6%' }
+  ];
+
+  const colorsMedicamentos = ['#557B6E', '#6B9080', '#7A9D8F', '#89AA9E', '#98B7AD'];
+  const colorsGrupos = ['#557B6E', '#6B9080', '#7A9D8F', '#89AA9E', '#98B7AD', '#A4C3B2'];
+
+  return (
+    <div className="w-full max-w-6xl mx-auto p-8 bg-white">
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold text-gray-800 mb-2">
+          Uso de Medicamentos en el Programa
+        </h2>
+        <h3 className="text-xl text-gray-600 mb-1">Programa de Desnutrición Infantil - Mundo Orenda</h3>
+      </div>
+
+      <div className="mb-12">
+        <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">Medicamentos Más Utilizados</h3>
+        <ResponsiveContainer width="100%" height={400}>
+          <BarChart data={dataMedicamentos} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+            <XAxis 
+              dataKey="medicamento" 
+              tick={{ fill: '#374151', fontSize: 13, fontWeight: 500 }}
+            />
+            <YAxis tick={{ fill: '#374151', fontSize: 13 }} />
+            <Bar dataKey="cantidad" radius={[8, 8, 0, 0]}>
+              {dataMedicamentos.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={colorsMedicamentos[index]} />
+              ))}
+              <LabelList 
+                dataKey="cantidad" 
+                position="top" 
+                style={{ fill: '#1f2937', fontWeight: 'bold', fontSize: '14px' }}
+              />
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+
+        <div className="grid grid-cols-5 gap-3 mt-6">
+          {dataMedicamentos.map((item, index) => (
+            <div key={index} className="bg-gray-50 p-4 rounded-lg border-2 border-gray-300 text-center">
+              <div className="w-6 h-6 rounded mx-auto mb-2" style={{ backgroundColor: colorsMedicamentos[index] }}></div>
+              <div className="text-sm text-gray-600 font-medium mb-1">{item.medicamento}</div>
+              <div className="text-2xl font-bold text-gray-800">{item.cantidad}</div>
+              <div className="text-sm text-gray-500 mt-1">{item.porcentaje}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mb-8">
+        <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">Distribución por Grupos Terapéuticos</h3>
+        <ResponsiveContainer width="100%" height={400}>
+          <BarChart data={dataGrupos} margin={{ top: 20, right: 30, left: 20, bottom: 70 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+            <XAxis 
+              dataKey="grupo" 
+              angle={-15}
+              textAnchor="end"
+              height={90}
+              tick={{ fill: '#374151', fontSize: 12, fontWeight: 500 }}
+            />
+            <YAxis tick={{ fill: '#374151', fontSize: 13 }} />
+            <Bar dataKey="cantidad" radius={[8, 8, 0, 0]}>
+              {dataGrupos.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={colorsGrupos[index]} />
+              ))}
+              <LabelList 
+                dataKey="cantidad" 
+                position="top" 
+                style={{ fill: '#1f2937', fontWeight: 'bold', fontSize: '14px' }}
+              />
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
+};
+
+export default MedicamentosPrincipales;
