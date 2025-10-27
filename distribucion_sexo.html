@@ -1,0 +1,88 @@
+import React from 'react';
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
+
+const GraficaSexo = () => {
+  const data = [
+    { name: 'Femenino', value: 87, porcentaje: 55.1 },
+    { name: 'Masculino', value: 71, porcentaje: 44.9 }
+  ];
+
+  const COLORS = ['#A4C3B2', '#6B9080'];
+
+  const renderCustomLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+    const RADIAN = Math.PI / 180;
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text 
+        x={x} 
+        y={y} 
+        fill="white" 
+        textAnchor={x > cx ? 'start' : 'end'} 
+        dominantBaseline="central"
+        className="font-bold"
+        style={{ fontSize: '32px' }}
+      >
+        {`${(percent * 100).toFixed(1)}%`}
+      </text>
+    );
+  };
+
+  return (
+    <div className="w-full max-w-5xl mx-auto p-10 bg-white">
+      <div className="text-center mb-10">
+        <h1 className="text-4xl font-bold text-gray-800 mb-3">
+          Distribución por Sexo
+        </h1>
+        <h2 className="text-2xl text-gray-600 mb-2">Programa de Desnutrición Infantil</h2>
+        <h3 className="text-xl text-gray-500">Mundo Orenda</h3>
+        <p className="text-lg text-gray-500 mt-4">Total: 148 niños atendidos</p>
+      </div>
+
+      <ResponsiveContainer width="100%" height={500}>
+        <PieChart>
+          <Pie
+            data={data}
+            cx="50%"
+            cy="50%"
+            labelLine={false}
+            label={renderCustomLabel}
+            outerRadius={180}
+            fill="#8884d8"
+            dataKey="value"
+            strokeWidth={4}
+            stroke="#fff"
+          >
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={COLORS[index]} />
+            ))}
+          </Pie>
+        </PieChart>
+      </ResponsiveContainer>
+
+      <div className="grid grid-cols-2 gap-8 mt-10">
+        <div className="bg-gradient-to-br from-green-100 to-green-200 p-10 rounded-xl border-3 border-green-400 shadow-lg">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-2xl text-gray-800 font-bold">Femenino</span>
+            <div className="w-10 h-10 rounded-lg shadow-md" style={{ backgroundColor: '#A4C3B2' }}></div>
+          </div>
+          <div className="text-6xl font-bold text-gray-900 mb-3">87</div>
+          <div className="text-xl text-gray-700 font-semibold">55.1% del total</div>
+        </div>
+        
+        <div className="bg-gradient-to-br from-blue-100 to-blue-200 p-10 rounded-xl border-3 border-blue-400 shadow-lg">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-2xl text-gray-800 font-bold">Masculino</span>
+            <div className="w-10 h-10 rounded-lg shadow-md" style={{ backgroundColor: '#6B9080' }}></div>
+          </div>
+          <div className="text-6xl font-bold text-gray-900 mb-3">71</div>
+          <div className="text-xl text-gray-700 font-semibold">44.9% del total</div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default GraficaSexo;
